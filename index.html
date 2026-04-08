@@ -530,11 +530,33 @@
       accent-color: #0070d2;
       cursor: pointer;
       margin: 0;
+      flex-shrink: 0;
     }
-    .accordion-item label {
-      cursor: pointer;
+    .accordion-item .art-nr {
+      width: 70px;
+      flex-shrink: 0;
+      font-size: 12px;
+      font-weight: 600;
+      color: #181818;
+    }
+    .accordion-item .art-text {
       flex: 1;
+      font-size: 12px;
+      color: #3e3e3c;
     }
+    .accordion-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      font-size: 11px;
+      color: #706e6b;
+      font-weight: 600;
+      border-bottom: 1px solid #d8dde6;
+    }
+    .accordion-panel-header .col-cb { width: 16px; flex-shrink: 0; }
+    .accordion-panel-header .col-nr { width: 70px; flex-shrink: 0; }
+    .accordion-panel-header .col-text { flex: 1; }
     .btn-weiter {
       width: 100%;
       margin-top: 12px;
@@ -548,6 +570,141 @@
       cursor: pointer;
     }
     .btn-weiter:hover { background: #005fb2; }
+
+    /* ── Modal Overlay ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 200;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 1200px;
+      max-height: calc(100vh - 64px);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .modal-header {
+      background: #032d60;
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .modal-header h2 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.15); }
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+    .modal-group-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #032d60;
+      padding: 10px 0 8px;
+      border-bottom: 2px solid #d8dde6;
+      margin-bottom: 0;
+      margin-top: 20px;
+    }
+    .modal-group-title:first-child { margin-top: 0; }
+    .quote-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    .quote-table thead th {
+      background: #f3f3f3;
+      color: #706e6b;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid #d8dde6;
+      white-space: nowrap;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .3px;
+    }
+    .quote-table tbody td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e8e8e8;
+      color: #181818;
+      vertical-align: middle;
+    }
+    .quote-table tbody tr:hover { background: #f7f9fb; }
+    .quote-table .col-right { text-align: right; }
+    .quote-table input[type="number"] {
+      width: 70px;
+      height: 30px;
+      border: 1px solid #d8dde6;
+      border-radius: 4px;
+      padding: 0 8px;
+      font-size: 12.5px;
+      text-align: right;
+      color: #181818;
+    }
+    .quote-table input[type="number"]:focus {
+      outline: none;
+      border-color: #0070d2;
+      box-shadow: 0 0 0 2px rgba(0,112,210,0.2);
+    }
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #d8dde6;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      flex-shrink: 0;
+      background: #fafaf9;
+    }
+    .btn-cancel {
+      height: 36px;
+      padding: 0 20px;
+      border: 1px solid #d8dde6;
+      background: #fff;
+      color: #706e6b;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-cancel:hover { background: #f3f3f3; }
+    .btn-save {
+      height: 36px;
+      padding: 0 20px;
+      border: none;
+      background: #04844b;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-save:hover { background: #036b3f; }
 
     /* ── Utility ── */
     .pencil-svg {
@@ -653,7 +810,7 @@
       <div class="card-header">
         <div class="card-header-left">
           <div class="card-icon green">📊</div>
-          <span class="card-title">Volume Forecast <span class="card-count">(1)</span></span>
+          <span class="card-title">Volume Forecast <span class="card-count">(2)</span></span>
         </div>
         <button class="card-toggle">▼</button>
       </div>
@@ -662,9 +819,18 @@
           <a href="#" class="link" style="font-size: 11px;">VF-1203260000094921</a>
           <button class="card-toggle" style="float:right;">▼</button>
         </div>
-        <div class="field-row"><span class="field-label">Category:</span><span class="field-value">Plank</span></div>
+        <div class="field-row"><span class="field-label">Category:</span><span class="field-value">Therm25</span></div>
         <div class="field-row"><span class="field-label">SQM Fore...:</span><span class="field-value">18.000</span></div>
         <div class="field-row"><span class="field-label">Revenue F...:</span><span class="field-value">EUR 360.000,00</span></div>
+        <div style="border-top: 1px solid #d8dde6; margin-top: 10px; padding-top: 10px;">
+          <div style="margin-bottom: 8px;">
+            <a href="#" class="link" style="font-size: 11px;">VF-1203260000094922</a>
+            <button class="card-toggle" style="float:right;">▼</button>
+          </div>
+          <div class="field-row"><span class="field-label">Category:</span><span class="field-value">Plank</span></div>
+          <div class="field-row"><span class="field-label">SQM Fore...:</span><span class="field-value">5.000</span></div>
+          <div class="field-row"><span class="field-label">Revenue F...:</span><span class="field-value">EUR 100.000,00</span></div>
+        </div>
       </div>
       <div class="view-all"><a href="#">View All</a></div>
     </div>
@@ -796,21 +962,57 @@
         <button class="card-toggle">▼</button>
       </div>
       <div class="angebot-body">
-        <div class="accordion-trigger" id="plankAccordion" onclick="toggleAccordion()">
+        <!-- Accordion: Therm25 -->
+        <div class="accordion-trigger open" id="therm25Accordion" onclick="toggleAccordionById('therm25')">
+          <span>Therm25</span>
+          <span class="arrow" style="font-size: 14px;">▼</span>
+        </div>
+        <div class="accordion-panel open" id="therm25Panel">
+          <div class="accordion-panel-header">
+            <span class="col-cb"></span>
+            <span class="col-nr">Art.-Nr.</span>
+            <span class="col-text">Artikeltext</span>
+          </div>
+          <div class="accordion-item">
+            <input type="checkbox" id="opt1">
+            <span class="art-nr">76406</span>
+            <span class="art-text">Therm25 Rundnuten</span>
+          </div>
+          <div class="accordion-item">
+            <input type="checkbox" id="opt2">
+            <span class="art-nr">76407</span>
+            <span class="art-text">Therm25 Längs- und Quernuten</span>
+          </div>
+          <div class="accordion-item">
+            <input type="checkbox" id="opt3">
+            <span class="art-nr">76412</span>
+            <span class="art-text">Therm 25 125mm</span>
+          </div>
+        </div>
+
+        <!-- Accordion: Plank -->
+        <div class="accordion-trigger open" id="plankAccordion" onclick="toggleAccordionById('plank')" style="margin-top: 10px;">
           <span>Plank</span>
           <span class="arrow" style="font-size: 14px;">▼</span>
         </div>
-        <div class="accordion-panel" id="plankPanel">
-          <div class="accordion-item">
-            <input type="checkbox" id="opt1"><label for="opt1">1</label>
+        <div class="accordion-panel open" id="plankPanel">
+          <div class="accordion-panel-header">
+            <span class="col-cb"></span>
+            <span class="col-nr">Art.-Nr.</span>
+            <span class="col-text">Artikeltext</span>
           </div>
           <div class="accordion-item">
-            <input type="checkbox" id="opt2"><label for="opt2">2</label>
+            <input type="checkbox" id="opt4">
+            <span class="art-nr">5480122</span>
+            <span class="art-text">Hardie Plank Glatt Perlgrau</span>
           </div>
           <div class="accordion-item">
-            <input type="checkbox" id="opt3"><label for="opt3">3</label>
+            <input type="checkbox" id="opt5">
+            <span class="art-nr">5480162</span>
+            <span class="art-text">Hardie Plank Holzstruktur Perlgrau</span>
           </div>
         </div>
+
         <button class="btn-weiter" onclick="weiterClick()">Weiter</button>
       </div>
     </div>
@@ -881,23 +1083,217 @@
 
 </div>
 
+<!-- ══ QUOTE MODAL ══ -->
+<div class="modal-overlay" id="quoteModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Angebot – Produktkonfiguration</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="quoteModalBody">
+      <!-- Filled dynamically -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Abbrechen</button>
+      <button class="btn-save" onclick="saveAndRecalc()">Speichern</button>
+    </div>
+  </div>
+</div>
+
 <script>
-  function toggleAccordion() {
-    document.getElementById('plankAccordion').classList.toggle('open');
-    document.getElementById('plankPanel').classList.toggle('open');
+  /* ── Product catalog with list prices ── */
+  const productCatalog = {
+    '76406':   { desc: 'Therm25 Rundnuten',                  listPrice: 25.49, group: 'Therm25' },
+    '76407':   { desc: 'Therm25 Längs- und Quernuten',       listPrice: 18.75, group: 'Therm25' },
+    '76412':   { desc: 'Therm 25 125mm',                     listPrice: 12.30, group: 'Therm25' },
+    '5480122': { desc: 'Hardie Plank Glatt Perlgrau',        listPrice: 22.47, group: 'Plank' },
+    '5480162': { desc: 'Hardie Plank Holzstruktur Perlgrau', listPrice: 27.90, group: 'Plank' },
+  };
+
+  /* ── Zubehör catalog – 3 items per main product ── */
+  const accessoryCatalog = {
+    '76406': [
+      { artNr: '79101', desc: 'Befestigungsclip Therm25 Rundnuten',       listPrice: 3.45 },
+      { artNr: '79102', desc: 'Dichtband Rundnuten 10m',                  listPrice: 8.90 },
+      { artNr: '79103', desc: 'Edelstahlschraube 4,5x35 (250 St.)',       listPrice: 12.50 },
+    ],
+    '76407': [
+      { artNr: '79201', desc: 'Befestigungsclip Therm25 Kreuz',           listPrice: 3.70 },
+      { artNr: '79202', desc: 'Fugenprofil Längs-/Quernuten 3m',          listPrice: 6.80 },
+      { artNr: '79203', desc: 'Abschlussleiste Therm25 Alu 2,5m',        listPrice: 14.20 },
+    ],
+    '76412': [
+      { artNr: '79301', desc: 'Startleiste Therm25 125mm Alu',            listPrice: 5.60 },
+      { artNr: '79302', desc: 'Eckprofil Therm25 125mm außen',            listPrice: 11.30 },
+      { artNr: '79303', desc: 'Unterkonstruktion Clip 125mm (100 St.)',   listPrice: 18.90 },
+    ],
+    '5480122': [
+      { artNr: '79401', desc: 'Startleiste Plank Aluminium 3m',           listPrice: 7.25 },
+      { artNr: '79402', desc: 'Edelstahlnagel Plank 50mm (250 St.)',      listPrice: 9.80 },
+      { artNr: '79403', desc: 'Außeneckprofil Plank Perlgrau',            listPrice: 15.40 },
+    ],
+    '5480162': [
+      { artNr: '79501', desc: 'Startleiste Plank Holzstruktur 3m',        listPrice: 7.50 },
+      { artNr: '79502', desc: 'Touch-Up Kit Perlgrau Holzstruktur',       listPrice: 4.90 },
+      { artNr: '79503', desc: 'H-Profil Plank Verbinder Perlgrau',        listPrice: 11.60 },
+    ],
+  };
+
+  /* ── Accordion toggle ── */
+  function toggleAccordionById(id) {
+    document.getElementById(id + 'Accordion').classList.toggle('open');
+    document.getElementById(id + 'Panel').classList.toggle('open');
   }
 
+  /* ── Collect selected products and open modal ── */
   function weiterClick() {
     const selected = [];
-    document.querySelectorAll('#plankPanel input[type="checkbox"]:checked').forEach(cb => {
-      selected.push(cb.nextElementSibling.textContent);
+
+    // Therm25 panel
+    document.querySelectorAll('#therm25Panel input[type="checkbox"]:checked').forEach(cb => {
+      const artNr = cb.parentElement.querySelector('.art-nr').textContent.trim();
+      if (productCatalog[artNr]) selected.push(artNr);
     });
+
+    // Plank panel
+    document.querySelectorAll('#plankPanel input[type="checkbox"]:checked').forEach(cb => {
+      const artNr = cb.parentElement.querySelector('.art-nr').textContent.trim();
+      if (productCatalog[artNr]) selected.push(artNr);
+    });
+
     if (selected.length === 0) {
-      alert('Bitte mindestens einen Wert auswählen.');
-    } else {
-      alert('Ausgewählt: ' + selected.join(', '));
+      alert('Bitte mindestens ein Produkt auswählen.');
+      return;
     }
+
+    // Group by category
+    const groups = {};
+    selected.forEach(artNr => {
+      const p = productCatalog[artNr];
+      if (!groups[p.group]) groups[p.group] = [];
+      groups[p.group].push(artNr);
+    });
+
+    // Store selected for accessory lookup
+    window.currentSelected = selected;
+
+    // Build modal content – product groups
+    let html = '';
+    const tableHead = '<table class="quote-table"><thead><tr>'
+      + '<th>Product Number</th><th>Description</th>'
+      + '<th class="col-right">List Price</th><th class="col-right">QTY</th>'
+      + '<th>Unit</th><th class="col-right">Partner Discount</th>'
+      + '<th class="col-right">Discount %</th><th class="col-right">Net Price</th>'
+      + '</tr></thead><tbody>';
+
+    for (const groupName in groups) {
+      html += '<div class="modal-group-title">' + groupName + '</div>';
+      html += tableHead;
+
+      groups[groupName].forEach(artNr => {
+        const p = productCatalog[artNr];
+        const net = p.listPrice * 0.75;
+        html += '<tr id="row_' + artNr + '">'
+          + '<td>' + artNr + '</td>'
+          + '<td>' + p.desc + '</td>'
+          + '<td class="col-right">€ ' + p.listPrice.toFixed(2).replace('.', ',') + '</td>'
+          + '<td class="col-right"><input type="number" min="1" value="1" onchange="recalcRow(\'' + artNr + '\')" oninput="recalcRow(\'' + artNr + '\')"></td>'
+          + '<td>M2</td>'
+          + '<td class="col-right">25,00 %</td>'
+          + '<td class="col-right"><input type="number" min="0" max="100" step="0.5" value="0" onchange="recalcRow(\'' + artNr + '\')" oninput="recalcRow(\'' + artNr + '\')"></td>'
+          + '<td class="col-right net-price" id="net_' + artNr + '">€ ' + net.toFixed(2).replace('.', ',') + '</td>'
+          + '</tr>';
+      });
+      html += '</tbody></table>';
+    }
+
+    // Zubehör group
+    html += '<div class="modal-group-title">Zubehör</div>';
+    html += tableHead;
+    selected.forEach(artNr => {
+      const accessories = accessoryCatalog[artNr] || [];
+      accessories.forEach(acc => {
+        const net = acc.listPrice * 0.75;
+        html += '<tr id="row_' + acc.artNr + '">'
+          + '<td>' + acc.artNr + '</td>'
+          + '<td>' + acc.desc + '</td>'
+          + '<td class="col-right">€ ' + acc.listPrice.toFixed(2).replace('.', ',') + '</td>'
+          + '<td class="col-right"><input type="number" min="1" value="1" onchange="recalcAccRow(\'' + acc.artNr + '\',' + acc.listPrice + ')" oninput="recalcAccRow(\'' + acc.artNr + '\',' + acc.listPrice + ')"></td>'
+          + '<td>ST</td>'
+          + '<td class="col-right">25,00 %</td>'
+          + '<td class="col-right"><input type="number" min="0" max="100" step="0.5" value="0" onchange="recalcAccRow(\'' + acc.artNr + '\',' + acc.listPrice + ')" oninput="recalcAccRow(\'' + acc.artNr + '\',' + acc.listPrice + ')"></td>'
+          + '<td class="col-right net-price" id="net_' + acc.artNr + '">€ ' + net.toFixed(2).replace('.', ',') + '</td>'
+          + '</tr>';
+      });
+    });
+    html += '</tbody></table>';
+
+    document.getElementById('quoteModalBody').innerHTML = html;
+    document.getElementById('quoteModal').classList.add('open');
   }
+
+  /* ── Recalculate net price for a row ── */
+  function recalcRow(artNr) {
+    const row = document.getElementById('row_' + artNr);
+    const inputs = row.querySelectorAll('input[type="number"]');
+    const qty = parseFloat(inputs[0].value) || 0;
+    const discount = (parseFloat(inputs[1].value) || 0) / 100;
+    const listPrice = productCatalog[artNr].listPrice;
+    const partnerDiscount = 0.25;
+    const netPrice = listPrice * (1 - partnerDiscount) * (1 - discount);
+    document.getElementById('net_' + artNr).textContent = '€ ' + netPrice.toFixed(2).replace('.', ',');
+  }
+
+  /* ── Recalculate accessory row ── */
+  function recalcAccRow(artNr, listPrice) {
+    const row = document.getElementById('row_' + artNr);
+    const inputs = row.querySelectorAll('input[type="number"]');
+    const discount = (parseFloat(inputs[1].value) || 0) / 100;
+    const netPrice = listPrice * (1 - 0.25) * (1 - discount);
+    document.getElementById('net_' + artNr).textContent = '€ ' + netPrice.toFixed(2).replace('.', ',');
+  }
+
+  /* ── Save: recalc all rows, show confirmation ── */
+  function saveAndRecalc() {
+    document.querySelectorAll('#quoteModalBody tbody tr').forEach(row => {
+      const cells = row.querySelectorAll('td');
+      if (cells.length < 8) return;
+
+      // List Price is in column 3 (index 2) – parse from "€ 25,49"
+      const priceText = cells[2].textContent.replace('€', '').replace('.', '').replace(',', '.').trim();
+      const listPrice = parseFloat(priceText) || 0;
+
+      // Discount input is in column 7 (index 6)
+      const discountInput = cells[6].querySelector('input[type="number"]');
+      const discount = discountInput ? (parseFloat(discountInput.value) || 0) / 100 : 0;
+
+      const netPrice = listPrice * (1 - 0.25) * (1 - discount);
+
+      // Net Price cell is column 8 (index 7)
+      const netCell = cells[7];
+      if (netCell) {
+        netCell.textContent = '€ ' + netPrice.toFixed(2).replace('.', ',');
+        netCell.style.transition = 'background .3s';
+        netCell.style.background = '#e6f7ee';
+        setTimeout(() => { netCell.style.background = ''; }, 1500);
+      }
+    });
+  }
+
+  /* ── Close modal ── */
+  function closeModal() {
+    document.getElementById('quoteModal').classList.remove('open');
+  }
+
+  // Close modal on overlay click
+  document.getElementById('quoteModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
 </script>
 
 </body>
