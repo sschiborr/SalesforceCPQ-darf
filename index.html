@@ -961,7 +961,13 @@
         </div>
         <button class="card-toggle">▼</button>
       </div>
-      <div class="angebot-body">
+      <!-- Start Screen -->
+      <div class="angebot-body" id="angebotStart">
+        <button class="btn-weiter" onclick="showAccordions()" style="margin-top: 0;">Angebot erstellen</button>
+      </div>
+
+      <!-- Accordion Selection (hidden initially) -->
+      <div class="angebot-body" id="angebotAccordions" style="display: none;">
         <!-- Accordion: Therm25 -->
         <div class="accordion-trigger open" id="therm25Accordion" onclick="toggleAccordionById('therm25')">
           <span>Therm25</span>
@@ -1138,6 +1144,12 @@
       { artNr: '79503', desc: 'H-Profil Plank Verbinder Perlgrau',        listPrice: 11.60 },
     ],
   };
+
+  /* ── Show accordions from start screen ── */
+  function showAccordions() {
+    document.getElementById('angebotStart').style.display = 'none';
+    document.getElementById('angebotAccordions').style.display = 'block';
+  }
 
   /* ── Accordion toggle ── */
   function toggleAccordionById(id) {
