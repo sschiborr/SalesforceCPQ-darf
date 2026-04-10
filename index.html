@@ -706,6 +706,52 @@
     }
     .btn-save:hover { background: #036b3f; }
 
+    /* Händler selection section */
+    .haendler-section {
+      background: #f7f9fb;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .haendler-section h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #032d60;
+      margin-bottom: 12px;
+    }
+    .haendler-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .haendler-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid #d8dde6;
+      border-radius: 20px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 12.5px;
+      user-select: none;
+      transition: all .15s;
+    }
+    .haendler-chip:hover { border-color: #0070d2; }
+    .haendler-chip input[type="checkbox"] {
+      width: 14px; height: 14px;
+      accent-color: #0070d2;
+      cursor: pointer;
+      margin: 0;
+    }
+    .haendler-chip.selected {
+      background: #e6f1fb;
+      border-color: #0070d2;
+      color: #0070d2;
+      font-weight: 600;
+    }
+
     /* ── Utility ── */
     .pencil-svg {
       display: inline-block;
@@ -850,6 +896,44 @@
           <div class="member-info">
             <div class="member-name"><a href="#" class="link">Andreas Stieger</a></div>
             <div class="member-role">Member Role: Sales Commercial</div>
+          </div>
+          <button class="card-toggle" style="margin-left:auto;">▼</button>
+        </div>
+      </div>
+      <div class="view-all"><a href="#">View All</a></div>
+    </div>
+
+    <!-- Opp Stakeholder -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon" style="background: #e3242b;">🤝</div>
+          <span class="card-title">Opp Stakeholder <span class="card-count">(3)</span></span>
+        </div>
+        <button class="card-toggle">▼</button>
+      </div>
+      <div class="card-body">
+        <div class="team-member">
+          <div class="avatar-sm" style="background: #f5a623;">HA</div>
+          <div class="member-info">
+            <div class="member-name"><a href="#" class="link">Handel A</a></div>
+            <div class="member-role">Rolle: Channel</div>
+          </div>
+          <button class="card-toggle" style="margin-left:auto;">▼</button>
+        </div>
+        <div class="team-member" style="margin-top: 8px;">
+          <div class="avatar-sm" style="background: #f5a623;">HB</div>
+          <div class="member-info">
+            <div class="member-name"><a href="#" class="link">Handel B</a></div>
+            <div class="member-role">Rolle: Channel</div>
+          </div>
+          <button class="card-toggle" style="margin-left:auto;">▼</button>
+        </div>
+        <div class="team-member" style="margin-top: 8px;">
+          <div class="avatar-sm" style="background: #9050e9;">AR</div>
+          <div class="member-info">
+            <div class="member-name"><a href="#" class="link">Architekt</a></div>
+            <div class="member-role">Rolle: Specifier</div>
           </div>
           <button class="card-toggle" style="margin-left:auto;">▼</button>
         </div>
@@ -1189,8 +1273,23 @@
     // Store selected for accessory lookup
     window.currentSelected = selected;
 
-    // Build modal content – product groups
+    // Channel stakeholders (from Opp Stakeholder section, role = Channel)
+    const channelStakeholders = ['Handel A', 'Handel B'];
+
+    // Build modal content – Händler selection + product groups
     let html = '';
+    html += '<div class="haendler-section">';
+    html += '<h3>Angebot anlegen für welche Händler?</h3>';
+    html += '<div class="haendler-options">';
+    channelStakeholders.forEach((name, idx) => {
+      const id = 'haendler_' + idx;
+      html += '<label class="haendler-chip" for="' + id + '" onclick="setTimeout(()=>this.classList.toggle(\'selected\', document.getElementById(\'' + id + '\').checked),0)">'
+        + '<input type="checkbox" id="' + id + '" value="' + name + '">'
+        + '<span>' + name + '</span>'
+        + '</label>';
+    });
+    html += '</div></div>';
+
     const tableHead = '<table class="quote-table"><thead><tr>'
       + '<th>Product Number</th><th>Description</th>'
       + '<th class="col-right">List Price</th><th class="col-right">QTY</th>'
